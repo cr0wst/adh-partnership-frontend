@@ -42,8 +42,11 @@ import apiUrl from "@/utils/api";
 import useUserStore from "@/stores/users";
 
 import OffcanvasMenuItem from "./OffcanvasMenuItem.vue";
+import { watch } from "vue";
+import { useRoute } from "vue-router";
 
 const userStore = useUserStore();
+const route = useRoute();
 
 const getName = (): string => {
   return `${userStore.user?.first_name} ${userStore.user?.last_name}`;
@@ -52,7 +55,15 @@ const getName = (): string => {
 // eslint-disable-next-line no-restricted-globals
 const loc = location.href;
 
-defineEmits(["toggle"]);
+const emit = defineEmits(["toggle", "close"]);
+
+// Watch for router navigation and close the drawer when it happens
+watch(
+  () => route.fullPath,
+  () => {
+    emit("close");
+  }
+);
 </script>
 
 <style scoped>

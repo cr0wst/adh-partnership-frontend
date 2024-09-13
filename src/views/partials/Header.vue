@@ -33,7 +33,7 @@
       </div>
     </div>
 
-    <OffcanvasMenu :class="{ 'show-mobile-menu': navOpen }" @toggle="toggleNav()" />
+    <OffcanvasMenu :class="{ 'show-mobile-menu': navOpen }" @toggle="toggleNav()" @close="closeNav()" />
   </div>
 </template>
 
@@ -53,6 +53,10 @@ const toggleNav = (): void => {
   navOpen.value = !navOpen.value;
 };
 
+const closeNav = (): void => {
+  navOpen.value = false;
+};
+
 onMounted(() => {
   window.addEventListener("scroll", () => {
     if (window.scrollY > 88) {
@@ -69,6 +73,7 @@ onMounted(() => {
 .zdvcolors {
   text-shadow: 2px 2px 5px #fff;
 }
+
 .show-mobile-menu {
   @apply opacity-100 visible;
 }
